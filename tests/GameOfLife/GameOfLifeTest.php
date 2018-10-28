@@ -7,6 +7,7 @@ namespace GameOfLife;
 use GameOfLife\Exception\DataNotFoundException;
 use GameOfLife\Service\GameOfLifeResolver;
 use PHPUnit\Framework\TestCase;
+use GameOfLife\AreaCell;
 
 final class GameOfLifeTest extends TestCase
 {
@@ -64,8 +65,10 @@ final class GameOfLifeTest extends TestCase
 
     public function testReturnNeighbourhoodForCell()
     {
-        $this->gameOfLifeResolver->setInput($this->input)->divideInputData();
+        $areaOfLifeArray = $this->gameOfLifeResolver->setInput($this->input)->divideInputData();
 
-        $actual = $this->gameOfLifeResolver->getNeighbourhoodForAnyCell(0, 0);
+        $cell = new Cell();
+
+        $this->assertSame('.', $cell->live());
     }
 }
