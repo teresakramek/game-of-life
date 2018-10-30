@@ -8,6 +8,7 @@
 
 namespace GameOfLife;
 
+use GameOfLife\Helper\Neighbourhood;
 
 class Cell
 {
@@ -42,28 +43,9 @@ class Cell
     public function getNeighbourhoodOfCell()
     {
 
-        $neighbourhoodOfCell = [];
-        //previous row
-        if (($this->rowIndex > 0) && ($previousRow = $this->areaOfLife[$this->rowIndex - 1])) {
-            array_push($neighbourhoodOfCell, ($previousRow[$this->positionIndex - 1] ?? '.'));
-            array_push($neighbourhoodOfCell, ($previousRow[$this->positionIndex] ?? '.'));
-            array_push($neighbourhoodOfCell, ($previousRow[$this->positionIndex + 1] ?? '.'));
-        } else {
-            array_push($neighbourhoodOfCell, '.', '.', '.');
-        }
+        $neighbourhoodOfCell = new Neighbourhood();
 
-        if (($currentRow = $this->areaOfLife[$this->rowIndex])) {
-            array_push($neighbourhoodOfCell, ($currentRow[$this->positionIndex - 1] ?? '.'));
-            array_push($neighbourhoodOfCell, ($currentRow[$this->positionIndex + 1] ?? '.'));
-        }
-
-        if (($this->rowIndex < count($this->areaOfLife) - 1) && ($nextRow = $this->areaOfLife[$this->rowIndex + 1])) {
-            array_push($neighbourhoodOfCell, ($nextRow[$this->positionIndex - 1] ?? '.'));
-            array_push($neighbourhoodOfCell, ($nextRow[$this->positionIndex] ?? '.'));
-            array_push($neighbourhoodOfCell, ($nextRow[$this->positionIndex + 1] ?? '.'));
-        } else {
-            array_push($neighbourhoodOfCell, '.', '.', '.');
-        }
+        $neighbourhoodOfCell = $neighbourhoodOfCell($this->areaOfLife, $this->rowIndex, $this->positionIndex);
 
         return $neighbourhoodOfCell;
 

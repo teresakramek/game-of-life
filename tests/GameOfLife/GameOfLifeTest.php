@@ -78,7 +78,7 @@ final class GameOfLifeTest extends TestCase
 
         $cell = new Cell($areaOfLifeArray, 0 ,0);
 
-        $this->assertCount(8, $cell->getNeighbourhoodOfCell());
+        $this->assertCount(6, $cell->getNeighbourhoodOfCell());
     }
 
     public function testReturnEightNeighbourhoodCellsWhenAllNeighbourhoodForCellIsDeadAndRequestedIsAliveCell()
@@ -87,7 +87,7 @@ final class GameOfLifeTest extends TestCase
 
         $cell = new Cell($areaOfLifeArray, 4 ,4);
 
-        $this->assertCount(8, $cell->getNeighbourhoodOfCell());
+        $this->assertCount(6, $cell->getNeighbourhoodOfCell());
     }
 
 
