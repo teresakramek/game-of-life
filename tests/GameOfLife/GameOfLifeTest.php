@@ -76,9 +76,9 @@ final class GameOfLifeTest extends TestCase
     {
         $areaOfLifeArray = $this->gameOfLifeResolver->setInput($this->input)->divideInputData();
 
-        $cell = new Cell($areaOfLifeArray, 0 ,0);
+        $cell = new Cell($areaOfLifeArray, 2 ,4);
 
-        $this->assertCount(6, $cell->getNeighbourhoodOfCell());
+        $this->assertCount(8, $cell->getNeighbourhoodOfCell());
     }
 
     public function testReturnEightNeighbourhoodCellsWhenAllNeighbourhoodForCellIsDeadAndRequestedIsAliveCell()
@@ -87,10 +87,6 @@ final class GameOfLifeTest extends TestCase
 
         $cell = new Cell($areaOfLifeArray, 4 ,4);
 
-        $this->assertCount(6, $cell->getNeighbourhoodOfCell());
+        $this->assertCount(8, $cell->getNeighbourhoodOfCell());
     }
-
-
-
-
 }

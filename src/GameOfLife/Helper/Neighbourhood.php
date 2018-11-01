@@ -6,46 +6,56 @@ use GameOfLife\ValueObject\NeighbourhoodValue;
 
 class Neighbourhood
 {
-    function __invoke($areaOfLife, $rowIndex, $positionIndex)
+    private $areaOfLife;
+    private $rowIndex;
+    private $positionIndex;
+
+    function __invoke(array $areaOfLife, int $rowIndex, int $positionIndex)
     {
+        $this->areaOfLife = $areaOfLife;
+        $this->rowIndex = $rowIndex;
+        $this->positionIndex = $positionIndex;
+
         $neighbourhoodOfCell = [];
 
         $rowsPositions = [$rowIndex - 1, $rowIndex, $rowIndex + 1];
 
         foreach ($rowsPositions as $rowPosition) {
-            $rowCells = $this->getForRow($areaOfLife, $rowIndex, $positionIndex, $rowPosition);
+            $rowCells = $this->getForRow($rowPosition);
             $neighbourhoodOfCell = array_merge($neighbourhoodOfCell, $rowCells);
         }
 
         return $neighbourhoodOfCell;
     }
 
-    private function getForRow($areaOfLife, $rowIndex, $positionIndex, $rowPosition) : array
+    private function getForRow($rowPosition) : array
     {
         $neighbourhoodOfCellFromRow = [];
 
-        if ($this->isCanGetForRow($areaOfLife, $rowIndex)) {
-            array_push($neighbourhoodOfCellFromRow, $areaOfLife[$rowPosition][$positionIndex - 1] ?? '.');
+        $row = $this->areaOfLife[$rowPosition];
 
-            if ($this->isCanGetIndex($rowIndex, $positionIndex)) {
-                array_push($neighbourhoodOfCellFromRow, $areaOfLife[$rowPosition][$positionIndex] ?? '.');
+        if ($this->isCanGetForRow()) {
+            array_push($neighbourhoodOfCellFromRow, $row[$this->positionIndex - 1] ?? '.');
+
+            if ($this->isCanGetIndex($rowPosition)) {
+                array_push($neighbourhoodOfCellFromRow, $row[$this->positionIndex] ?? '.');
             }
 
-            array_push($neighbourhoodOfCellFromRow, $areaOfLife[$rowPosition][$positionIndex + 1] ?? '.');
+            array_push($neighbourhoodOfCellFromRow, $row[$this->positionIndex + 1] ?? '.');
         }
 
         return $neighbourhoodOfCellFromRow;
     }
 
-    private function isCanGetForRow($areaOfLife, $rowIndex)
+    private function isCanGetForRow() : bool
     {
-        return ($rowIndex > 0)
-            || ($rowIndex < count($areaOfLife) - NeighbourhoodValue::PREVIOUS_INDEX);
+        return ($this->rowIndex > 0)
+            || ($this->rowIndex < count($this->areaOfLife) - NeighbourhoodValue::PREVIOUS_INDEX);
     }
 
-    private function isCanGetIndex($rowIndex, $positionIndex)
+    private function isCanGetIndex($rowPosition) : bool
     {
-        return $rowIndex !== $positionIndex;
+        return $this->rowIndex !== $rowPosition;
     }
 
 }
