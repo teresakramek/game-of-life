@@ -20,14 +20,15 @@ final class GameOfLife
 
     public function run(string $input): void
     {
-        $input = $this->gameOfLifeResolver->setInput($input)->createLife();
-
-        exit();
+        $this->gameOfLifeResolver->setInput($input);
 
         while (1) {
             sleep(1);
             system('clear');
             print $input;
+
+            $input = $this->gameOfLifeResolver->createLife();
+
             print "Printing timestamp just so you know the script is running " . time();
         }
     }

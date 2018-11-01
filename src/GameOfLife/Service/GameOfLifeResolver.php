@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace GameOfLife\Service;
 
+use GameOfLife\Cell;
 use GameOfLife\Exception\DataNotFoundException;
 
 /**
@@ -26,30 +27,56 @@ class GameOfLifeResolver
             throw new DataNotFoundException('can not find data in resolver');
         }
 
-        return $this->areaOfLife;
+        $this->areaOfLife = $this->makeLife();
+
+        return $this->toString();
     }
 
     public function setInput(string $input) : self
     {
-        $this->areaOfLife = $input;
+        $this->areaOfLife = $this->toArray($input);
 
         return $this;
     }
 
-    public function divideInputData() : array
+    private function toArray($areaOfLife)
     {
-        $this->areaOfLife = explode(PHP_EOL, $this->areaOfLife);
+        $areaOfLife = explode(PHP_EOL, $areaOfLife);
 
-        foreach ($this->areaOfLife as $index => $row) {
+        foreach ($areaOfLife as $index => $row) {
             if (empty($row)) {
-                 unset($this->areaOfLife[$index]);
+                 unset($areaOfLife[$index]);
             }
         }
-        return $this->areaOfLife;
+
+        return $areaOfLife;
     }
 
-    public function getNeighbourhoodForAnyCell(int $rowIndex, int $cellIndex) : array
+    private function makeLife()
     {
-        $row = $this->areaOfLife[$rowIndex];
+        $newAreaOfLife = [];
+
+        foreach ($this->areaOfLife as $rowIndex => $row) {
+
+            $newRow = [];
+            foreach (str_split($row) as $cellIndex => $status) {
+                $cell = new Cell($this->areaOfLife, $rowIndex ,$cellIndex);
+                $newRow[$cellIndex] = $cell->live();
+            }
+
+            $newAreaOfLife[$rowIndex] = join("", $newRow);
+        }
+
+        return $newAreaOfLife;
+    }
+
+    private function toString()
+    {
+        $string = '';
+        foreach ($this->areaOfLife as $x => $row) {
+            $string .= $row . PHP_EOL;
+        }
+
+        return $string;
     }
 }
