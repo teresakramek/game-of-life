@@ -20,7 +20,7 @@ final class GameOfLife
 
     public function run(string $input): void
     {
-        $this->gameOfLifeResolver->setInput($input);
+        $this->gameOfLifeResolver->setArea($input);
 
         while (1) {
             sleep(1);

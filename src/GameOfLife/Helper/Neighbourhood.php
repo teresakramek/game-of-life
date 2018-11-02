@@ -36,21 +36,20 @@ class Neighbourhood
 
         $row = $this->areaOfLife[$rowIndex];
 
-            array_push($neighbourhoodOfCellFromRow, $row[$this->positionIndex - 1] ?? '.');
+        array_push($neighbourhoodOfCellFromRow, $row[$this->positionIndex - 1] ?? '.');
 
             if ($this->isCanGetIndex($rowIndex)) {
                 array_push($neighbourhoodOfCellFromRow, $row[$this->positionIndex] ?? '.');
             }
 
-            array_push($neighbourhoodOfCellFromRow, $row[$this->positionIndex + 1] ?? '.');
-
+        array_push($neighbourhoodOfCellFromRow, $row[$this->positionIndex + 1] ?? '.');
 
         return $neighbourhoodOfCellFromRow;
     }
 
     private function isCanGetForRow(int $rowIndex) : bool
     {
-        return ($rowIndex > 0) && ($rowIndex < count($this->areaOfLife));
+        return ($rowIndex >= 0) && ($rowIndex < count($this->areaOfLife));
     }
 
     private function isCanGetIndex(int $rowPosition) : bool

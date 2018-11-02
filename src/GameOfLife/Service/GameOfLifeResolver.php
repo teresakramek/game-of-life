@@ -32,9 +32,9 @@ class GameOfLifeResolver
         return $this->toString();
     }
 
-    public function setInput(string $input) : self
+    public function setArea(string $area) : self
     {
-        $this->areaOfLife = $this->toArray($input);
+        $this->areaOfLife = $this->toArray($area);
 
         return $this;
     }

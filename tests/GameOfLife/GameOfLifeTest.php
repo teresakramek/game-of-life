@@ -42,7 +42,7 @@ final class GameOfLifeTest extends TestCase
 
     public function testReturnFalseWhenDividedInputDataAreNotEmpty()
     {
-        $actual = $this->gameOfLifeResolver->setInput($this->input)->divideInputData();
+        $actual = $this->gameOfLifeResolver->setArea($this->input);
 
         foreach ($actual as $item) {
             $this->assertFalse(empty($item));
@@ -51,7 +51,7 @@ final class GameOfLifeTest extends TestCase
 
     public function testReturnDeadCellWhenAllNeighbourhoodForCellIsDead()
     {
-        $areaOfLifeArray = $this->gameOfLifeResolver->setInput($this->input)->divideInputData();
+        $areaOfLifeArray = $this->gameOfLifeResolver->setArea($this->input);
 
         $cell = new Cell($areaOfLifeArray, 0 ,0);
 
@@ -60,21 +60,16 @@ final class GameOfLifeTest extends TestCase
 
     public function testReturnLiveCellWhenDeadCellHasThreeLiveNeighbourhood()
     {
-        $areaOfLifeArray = $this->gameOfLifeResolver->setInput($this->input)->divideInputData();
+        $areaOfLifeArray = $this->gameOfLifeResolver->setArea($this->input);
 
         $cell = new Cell($areaOfLifeArray, 3 ,3);
-
-//        var_dump($cell->getState());
-//        var_dump($cell->getNeighbourhoodOfCell());
-//        var_dump($cell->live());
-//        exit();
 
         $this->assertEquals('x', $cell->live());
     }
 
     public function testReturnLiveCellWhenDeadCellHasTwoLiveCellNeighbourhood()
     {
-        $areaOfLifeArray = $this->gameOfLifeResolver->setInput($this->input)->divideInputData();
+        $areaOfLifeArray = $this->gameOfLifeResolver->setArea($this->input);
 
         $cell = new Cell($areaOfLifeArray, 7 ,1);
 
@@ -83,7 +78,7 @@ final class GameOfLifeTest extends TestCase
 
     public function tesReturnDeadCellWhenLiveCellHasFourLiveCellNeighbourhood()
     {
-        $areaOfLifeArray = $this->gameOfLifeResolver->setInput($this->input)->divideInputData();
+        $areaOfLifeArray = $this->gameOfLifeResolver->setArea($this->input);
 
         $cell = new Cell($areaOfLifeArray, 7 ,1);
 
@@ -92,7 +87,7 @@ final class GameOfLifeTest extends TestCase
 
     public function tesReturnDeadCellWhenLiveCellHasOneLiveCellNeighbourhood()
     {
-        $areaOfLifeArray = $this->gameOfLifeResolver->setInput($this->input)->divideInputData();
+        $areaOfLifeArray = $this->gameOfLifeResolver->setArea($this->input);
 
         $cell = new Cell($areaOfLifeArray, 2 ,4);
 
@@ -101,7 +96,7 @@ final class GameOfLifeTest extends TestCase
 
     public function testReturnEightNeighbourhoodCellsWhenAllNeighbourhoodForCellIsDeadAndRequestedIsDeadCell()
     {
-        $areaOfLifeArray = $this->gameOfLifeResolver->setInput($this->input)->divideInputData();
+        $areaOfLifeArray = $this->gameOfLifeResolver->setArea($this->input);
 
         $cell = new Cell($areaOfLifeArray, 2 ,4);
 
@@ -110,7 +105,7 @@ final class GameOfLifeTest extends TestCase
 
     public function testReturnEightNeighbourhoodCellsWhenAllNeighbourhoodForCellIsDeadAndRequestedIsAliveCell()
     {
-        $areaOfLifeArray = $this->gameOfLifeResolver->setInput($this->input)->divideInputData();
+        $areaOfLifeArray = $this->gameOfLifeResolver->setArea($this->input);
 
         $cell = new Cell($areaOfLifeArray, 4 ,4);
 
@@ -119,7 +114,7 @@ final class GameOfLifeTest extends TestCase
 
     public function testReturnTrueWhenIfInNeighbourhoodIsOneLiveCell()
     {
-        $areaOfLifeArray = $this->gameOfLifeResolver->setInput($this->input)->divideInputData();
+        $areaOfLifeArray = $this->gameOfLifeResolver->setArea($this->input);
 
         $cell = new Cell($areaOfLifeArray, 2 ,4);
 
@@ -128,7 +123,7 @@ final class GameOfLifeTest extends TestCase
 
     public function testReturnFalseWhenIfInNeighbourhoodAnyLiveCell()
     {
-        $areaOfLifeArray = $this->gameOfLifeResolver->setInput($this->input)->divideInputData();
+        $areaOfLifeArray = $this->gameOfLifeResolver->setArea($this->input);
 
         $cell = new Cell($areaOfLifeArray, 0 ,0);
 
@@ -137,7 +132,7 @@ final class GameOfLifeTest extends TestCase
 
     public function testReturnTheSameValueWhenIfInNeighbourhoodAnyLiveCell()
     {
-        $areaOfLifeArray = $this->gameOfLifeResolver->setInput($this->input)->divideInputData();
+        $areaOfLifeArray = $this->gameOfLifeResolver->setArea($this->input);
 
         $cell = new Cell($areaOfLifeArray, 0 ,0);
 
