@@ -27,11 +27,6 @@ final class GameOfLifeTest extends TestCase
         $this->input = file_get_contents(__DIR__ . '/../testData/glider.txt');
     }
 
-    public function testServiceReturnsNoService(): void
-    {
-        $this->assertEquals('not working', $this->vendingMachine->test());
-    }
-
     public function testThrowDataNotFoundExceptionWhenNotAddDataToResolver()
     {
         $this->expectException(DataNotFoundException::class);
@@ -40,103 +35,28 @@ final class GameOfLifeTest extends TestCase
         $this->gameOfLifeResolver->createLife();
     }
 
-    public function testReturnFalseWhenDividedInputDataAreNotEmpty()
+    public function testReturnNewAreaOfLifeInSecondStep()
     {
-        $actual = $this->gameOfLifeResolver->setArea($this->input);
+        $initialArea = $this->input;
 
-        foreach ($actual as $item) {
-            $this->assertFalse(empty($item));
+        $secondStepArea = $this->gameOfLifeResolver->setArea($initialArea)->createLife();
+
+        $this->assertEquals(strlen($initialArea), strlen($secondStepArea));
+        $this->assertNotEquals($initialArea, $secondStepArea);
+    }
+
+    public function testReturnNewAreaOfLifeInAllStepsOnData()
+    {
+        $this->gameOfLifeResolver->setArea($this->input);
+
+        $stepArea = $this->input;
+
+        for ($i = 0; $i < 26; $i++) {
+            $nextStepArea = $this->gameOfLifeResolver->createLife();
+            $this->assertEquals(strlen($stepArea), strlen($nextStepArea));
+            $this->assertNotEquals($stepArea, $nextStepArea);
+            $stepArea = $nextStepArea;
         }
-    }
-
-    public function testReturnDeadCellWhenAllNeighbourhoodForCellIsDead()
-    {
-        $areaOfLifeArray = $this->gameOfLifeResolver->setArea($this->input);
-
-        $cell = new Cell($areaOfLifeArray, 0 ,0);
-
-        $this->assertEquals('.', $cell->live());
-    }
-
-    public function testReturnLiveCellWhenDeadCellHasThreeLiveNeighbourhood()
-    {
-        $areaOfLifeArray = $this->gameOfLifeResolver->setArea($this->input);
-
-        $cell = new Cell($areaOfLifeArray, 3 ,3);
-
-        $this->assertEquals('x', $cell->live());
-    }
-
-    public function testReturnLiveCellWhenDeadCellHasTwoLiveCellNeighbourhood()
-    {
-        $areaOfLifeArray = $this->gameOfLifeResolver->setArea($this->input);
-
-        $cell = new Cell($areaOfLifeArray, 7 ,1);
-
-        $this->assertEquals('x', $cell->live());
-    }
-
-    public function tesReturnDeadCellWhenLiveCellHasFourLiveCellNeighbourhood()
-    {
-        $areaOfLifeArray = $this->gameOfLifeResolver->setArea($this->input);
-
-        $cell = new Cell($areaOfLifeArray, 7 ,1);
-
-        $this->assertEquals('.', $cell->live());
-    }
-
-    public function tesReturnDeadCellWhenLiveCellHasOneLiveCellNeighbourhood()
-    {
-        $areaOfLifeArray = $this->gameOfLifeResolver->setArea($this->input);
-
-        $cell = new Cell($areaOfLifeArray, 2 ,4);
-
-        $this->assertEquals('.', $cell->live());
-    }
-
-    public function testReturnEightNeighbourhoodCellsWhenAllNeighbourhoodForCellIsDeadAndRequestedIsDeadCell()
-    {
-        $areaOfLifeArray = $this->gameOfLifeResolver->setArea($this->input);
-
-        $cell = new Cell($areaOfLifeArray, 2 ,4);
-
-        $this->assertCount(8, $cell->getNeighbourhoodOfCell());
-    }
-
-    public function testReturnEightNeighbourhoodCellsWhenAllNeighbourhoodForCellIsDeadAndRequestedIsAliveCell()
-    {
-        $areaOfLifeArray = $this->gameOfLifeResolver->setArea($this->input);
-
-        $cell = new Cell($areaOfLifeArray, 4 ,4);
-
-        $this->assertCount(8, $cell->getNeighbourhoodOfCell());
-    }
-
-    public function testReturnTrueWhenIfInNeighbourhoodIsOneLiveCell()
-    {
-        $areaOfLifeArray = $this->gameOfLifeResolver->setArea($this->input);
-
-        $cell = new Cell($areaOfLifeArray, 2 ,4);
-
-        $this->assertTrue(in_array('x', $cell->getNeighbourhoodOfCell()));
-    }
-
-    public function testReturnFalseWhenIfInNeighbourhoodAnyLiveCell()
-    {
-        $areaOfLifeArray = $this->gameOfLifeResolver->setArea($this->input);
-
-        $cell = new Cell($areaOfLifeArray, 0 ,0);
-
-        $this->assertFalse(in_array('x', $cell->getNeighbourhoodOfCell()));
-    }
-
-    public function testReturnTheSameValueWhenIfInNeighbourhoodAnyLiveCell()
-    {
-        $areaOfLifeArray = $this->gameOfLifeResolver->setArea($this->input);
-
-        $cell = new Cell($areaOfLifeArray, 0 ,0);
-
-        $this->assertEquals('.', $cell->getState());
     }
 
 }

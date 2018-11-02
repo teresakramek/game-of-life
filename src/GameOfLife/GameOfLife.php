@@ -33,7 +33,4 @@ final class GameOfLife
         }
     }
 
-    public function test(): string {
-        return 'not working';
-    }
 }
