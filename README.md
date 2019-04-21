@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/Martin89PL/game-of-life-TDD.svg?branch=master)](https://travis-ci.org/Martin89PL/game-of-life-TDD)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Martin89PL/game-of-life-TDD/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Martin89PL/game-of-life-TDD/?branch=master)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/Martin89PL/game-of-life-TDD/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 
 Coding Dojo Silesia #6
 ======================
