@@ -32,5 +32,4 @@ final class GameOfLife
             print "Printing timestamp just so you know the script is running " . time();
         }
     }
-
 }

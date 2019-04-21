@@ -7,12 +7,6 @@ namespace GameOfLife\Service;
 use GameOfLife\Cell;
 use GameOfLife\Exception\DataNotFoundException;
 
-/**
- * Created by PhpStorm.
- * User: marcin
- * Date: 27.10.18
- * Time: 14:26
- */
 class GameOfLifeResolver
 {
     const LIVE_CELL = 'x';
@@ -57,10 +51,9 @@ class GameOfLifeResolver
         $newAreaOfLife = [];
 
         foreach ($this->areaOfLife as $rowIndex => $row) {
-
             $newRow = [];
             foreach (str_split($row) as $cellIndex => $status) {
-                $cell = new Cell($this->areaOfLife, $rowIndex ,$cellIndex);
+                $cell = new Cell($this->areaOfLife, $rowIndex, $cellIndex);
                 $newRow[$cellIndex] = $cell->live();
             }
 

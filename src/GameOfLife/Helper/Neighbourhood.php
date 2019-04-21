@@ -38,9 +38,9 @@ class Neighbourhood
 
         array_push($neighbourhoodOfCellFromRow, $row[$this->positionIndex - 1] ?? '.');
 
-            if ($this->isCanGetIndex($rowIndex)) {
-                array_push($neighbourhoodOfCellFromRow, $row[$this->positionIndex] ?? '.');
-            }
+        if ($this->isCanGetIndex($rowIndex)) {
+            array_push($neighbourhoodOfCellFromRow, $row[$this->positionIndex] ?? '.');
+        }
 
         array_push($neighbourhoodOfCellFromRow, $row[$this->positionIndex + 1] ?? '.');
 
@@ -56,5 +56,4 @@ class Neighbourhood
     {
         return $this->rowIndex !== $rowPosition;
     }
-
 }

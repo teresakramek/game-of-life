@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: marcin
- * Date: 28.10.18
- * Time: 21:41
- */
 
 namespace GameOfLife;
 
@@ -12,7 +6,8 @@ use GameOfLife\Helper\Neighbourhood;
 
 /**
  * Martwa komórka, która ma dokładnie 3 żywych sąsiadów, staje się żywa w następnej jednostce czasu (rodzi się)
- * Żywa komórka z 2 albo 3 żywymi sąsiadami pozostaje nadal żywa; przy innej liczbie sąsiadów umiera (z „samotności” albo „zatłoczenia”)
+ * Żywa komórka z 2 albo 3 żywymi sąsiadami pozostaje nadal żywa;
+ * przy innej liczbie sąsiadów umiera (z „samotności” albo „zatłoczenia”)
  */
 class Cell
 {
@@ -76,7 +71,9 @@ class Cell
 
     private function makeDecisionForLiveCell(array $countNeighbourhoodCells)
     {
-        if (isset($countNeighbourhoodCells[Cell::LIVE_CELL]) && ($countNeighbourhoodCells[Cell::LIVE_CELL] < 2 || $countNeighbourhoodCells[Cell::LIVE_CELL] > 3)) {
+        if (isset($countNeighbourhoodCells[Cell::LIVE_CELL])
+            && ($countNeighbourhoodCells[Cell::LIVE_CELL] < 2
+                || $countNeighbourhoodCells[Cell::LIVE_CELL] > 3)) {
             $this->state = Cell::DEAD_CELL;
         }
     }
