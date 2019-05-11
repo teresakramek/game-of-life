@@ -15,25 +15,25 @@ class GameOfLifeResolver
 
     private $areaOfLife;
 
-    public function createLife()
+    public function createLife(): string
     {
         if (empty($this->areaOfLife)) {
-            throw new DataNotFoundException('can not find data in resolver');
+            throw new \InvalidArgumentException('can not find data in resolver');
         }
 
         $this->areaOfLife = $this->makeLife();
 
-        return $this->toString();
+        return $this->__toString();
     }
 
-    public function setArea(string $area) : self
+    public function setArea(string $area): self
     {
         $this->areaOfLife = $this->toArray($area);
 
         return $this;
     }
 
-    private function toArray($areaOfLife)
+    private function toArray($areaOfLife): array
     {
         $areaOfLife = explode(PHP_EOL, $areaOfLife);
 
@@ -46,7 +46,7 @@ class GameOfLifeResolver
         return $areaOfLife;
     }
 
-    private function makeLife()
+    private function makeLife(): array
     {
         $newAreaOfLife = [];
 
@@ -56,20 +56,18 @@ class GameOfLifeResolver
                 $cell = new Cell($this->areaOfLife, $rowIndex, $cellIndex);
                 $newRow[$cellIndex] = $cell->live();
             }
-
             $newAreaOfLife[$rowIndex] = join("", $newRow);
         }
 
         return $newAreaOfLife;
     }
 
-    private function toString()
+    public function __toString(): string
     {
-        $string = '';
+        $result = '';
         foreach ($this->areaOfLife as $x => $row) {
-            $string .= $row . PHP_EOL;
+            $result .= $row . PHP_EOL;
         }
-
-        return $string;
+        return $result;
     }
 }
