@@ -27,9 +27,12 @@ final class GameOfLife
             system('clear');
             print $input;
 
-            $input = $this->gameOfLifeResolver->createLife();
-
-            print "Printing timestamp just so you know the script is running " . time();
+            try {
+                $input = $this->gameOfLifeResolver->createLife();
+                print "Printing timestamp just so you know the script is running " . time();
+            } catch (\Throwable $e) {
+                print  "Error with create life glider";
+            }
         }
     }
 }
