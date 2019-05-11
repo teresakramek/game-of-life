@@ -24,13 +24,13 @@ class Neighbourhood
     {
         foreach ($this->rowsPositions as $rowPosition) {
             if ($this->isCanGetForRow($rowPosition)) {
-                $this->neighbourhoodOfCell = array_merge($this->neighbourhoodOfCell, $this->getForRow($rowPosition));
+                $this->neighbourhoodOfCell = array_merge($this->neighbourhoodOfCell, $this->getNeighbourhoodOfCellFromRow($rowPosition));
             }
         }
         return $this->neighbourhoodOfCell;
     }
 
-    private function getForRow(int $rowIndex) : array
+    private function getNeighbourhoodOfCellFromRow(int $rowIndex) : array
     {
         $neighbourhoodOfCellFromRow = [];
 
