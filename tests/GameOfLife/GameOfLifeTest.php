@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace GameOfLife;
 
-use GameOfLife\Exception\DataNotFoundException;
 use GameOfLife\Service\GameOfLifeResolver;
 use PHPUnit\Framework\TestCase;
-use GameOfLife\AreaCell;
 
 final class GameOfLifeTest extends TestCase
 {
@@ -17,6 +15,7 @@ final class GameOfLifeTest extends TestCase
     /** @var GameOfLifeResolver  */
     private $gameOfLifeResolver;
 
+    /** @var string */
     private $input;
 
     public function setUp(): void
@@ -27,9 +26,9 @@ final class GameOfLifeTest extends TestCase
         $this->input = file_get_contents(__DIR__ . '/../testData/glider.txt');
     }
 
-    public function testThrowDataNotFoundExceptionWhenNotAddDataToResolver()
+    public function testThrowInvalidArgumentExceptionWhenNotAddDataToResolver()
     {
-        $this->expectException(DataNotFoundException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('can not find data in resolver');
 
         $this->gameOfLifeResolver->createLife();
@@ -58,5 +57,4 @@ final class GameOfLifeTest extends TestCase
             $stepArea = $nextStepArea;
         }
     }
-
 }
