@@ -28,7 +28,7 @@ class Cell
         $this->areaOfLife = $areaOfLife;
         $this->rowIndex = $rowIndex;
         $this->positionIndex = $positionIndex;
-        $this->state = $areaOfLife[$rowIndex][$positionIndex];
+        $this->state = $areaOfLife[$this->rowIndex][$this->positionIndex];
     }
 
     public function live() : string
@@ -41,6 +41,9 @@ class Cell
                 break;
             case Cell::LIVE_CELL:
                 $this->makeDecisionForLiveCell($countNeighbourhoodCells);
+                break;
+            default:
+                throw new \Exception('Wrong cell state');
                 break;
         }
 
@@ -62,14 +65,14 @@ class Cell
         return $this->state;
     }
 
-    private function makeDecisionForDeadCell(array $countNeighbourhoodCells)
+    private function makeDecisionForDeadCell(array $countNeighbourhoodCells): void
     {
         if (isset($countNeighbourhoodCells[Cell::LIVE_CELL]) && $countNeighbourhoodCells[Cell::LIVE_CELL] === 3) {
             $this->state = Cell::LIVE_CELL;
         }
     }
 
-    private function makeDecisionForLiveCell(array $countNeighbourhoodCells)
+    private function makeDecisionForLiveCell(array $countNeighbourhoodCells): void
     {
         if (isset($countNeighbourhoodCells[Cell::LIVE_CELL])
             && ($countNeighbourhoodCells[Cell::LIVE_CELL] < 2
