@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: marcin
- * Date: 01.11.18
- * Time: 21:54
- */
 
 namespace GameOfLife;
 
@@ -39,6 +33,8 @@ class CellTest extends TestCase
      * @param $x
      * @param $y
      * @param $expectedStatus
+     * @param $initialStatus
+     * @throws \Exception
      */
      public function testReturnCellStatusFromDataToMakeDecision($area, $x, $y, $expectedStatus, $initialStatus)
      {
