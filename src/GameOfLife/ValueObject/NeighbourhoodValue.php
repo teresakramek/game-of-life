@@ -4,8 +4,6 @@ namespace GameOfLife\ValueObject;
 
 /**
  * return index of neighbourhood
- * Class Neighbourhood
- * @package GameOfLife\ValueObject
  */
 final class NeighbourhoodValue
 {
