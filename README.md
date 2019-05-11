@@ -20,3 +20,7 @@ Run: `php main.php input/glider.txt`
 ```docker-compose run composer install```: installation dependencies from composer.lock 
 ```docker-compose run php ./vendor/bin/phpunit ./tests/```: run tests using docker-compose  
 ```docker-compose run php composer require <package_name>```: installation of package   
+### Check code style tools
+`php ./vendor/bin/phpcs --standard=PSR2 ./src`  
+`php ./vendor/bin/phpcs --standard=PSR1 ./src`  
+`php ./vendor/bin/phpstan analyse src --level max`    
